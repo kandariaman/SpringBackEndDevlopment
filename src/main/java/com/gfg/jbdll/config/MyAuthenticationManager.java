@@ -35,9 +35,6 @@ public class MyAuthenticationManager implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        if(authentication.getClass().equals(UsernamePasswordAuthenticationToken.class))
-            return true;
-        else
-            return false;
+        return authentication.getClass().equals(UsernamePasswordAuthenticationToken.class);
     }
 }
