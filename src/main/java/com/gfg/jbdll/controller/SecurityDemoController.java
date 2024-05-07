@@ -14,4 +14,9 @@ public class SecurityDemoController {
     public ResponseEntity<?> greetUser(@PathVariable String user) {
         return new ResponseEntity<>("hello" + user, HttpStatusCode.valueOf(200));
     }
+
+    @GetMapping("/greet/admin/{user}")
+    public ResponseEntity<?> greetUserAdmin(@PathVariable String user) {
+        return new ResponseEntity<>("hello" + user, HttpStatusCode.valueOf(200));
+    }
 }
