@@ -2,7 +2,9 @@ package com.gfg.jbdll.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,6 +25,14 @@ public class SecurityConfiguration {
         security.authorizeRequests()
                 .requestMatchers("/admin/greet/**")
                 .hasAuthority("admin")
-                .requestMatchers("greet/**").hasAuthority("user");
+                .requestMatchers("/greet/**").hasAuthority("user")
+                .and().httpBasic(new Customizer<HttpBasicConfigurer<HttpSecurity>>() {
+                    @Override
+                    public void customize(HttpBasicConfigurer<HttpSecurity> httpSecurityHttpBasicConfigurer) {
+
+                    }
+                });
+
+        return security.build();
     }
 }
