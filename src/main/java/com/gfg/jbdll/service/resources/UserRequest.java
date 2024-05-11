@@ -14,6 +14,6 @@ public class UserRequest {
     private boolean isAdmin;
 
     public MyUser toUser(){
-        return MyUser.builder().username(username).password(password).authorities(isAdmin?"admin": "user").build();
+        return MyUser.builder().username(this.username).password(this.password).authorities(this.isAdmin?"admin": "user").build();
     }
 }

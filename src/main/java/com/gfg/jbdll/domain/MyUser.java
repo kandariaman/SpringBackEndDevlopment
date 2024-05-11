@@ -1,5 +1,6 @@
 package com.gfg.jbdll.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,17 +12,13 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Builder
+@AllArgsConstructor
 public class MyUser implements UserDetails {
 
     private String username;
     private String password;
     private String authorities;
-
-    public MyUser(String username, String password, String authorities) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
+    private String hashType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

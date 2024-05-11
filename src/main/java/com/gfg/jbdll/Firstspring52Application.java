@@ -27,8 +27,8 @@ public class Firstspring52Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userDetailService.addUser(new MyUser("john", "123", "admin"));
-		userDetailService.addUser(new MyUser("jenny","456","user"));
+		userDetailService.addUser(new MyUser("john", "123", "admin", "sha256"));
+		userDetailService.addUser(new MyUser("jenny","456","user", "sha256"));
 	}
 }
 
