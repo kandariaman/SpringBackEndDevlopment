@@ -26,6 +26,9 @@ public class SecurityConfiguration {
         security.authorizeRequests()
                 .requestMatchers(request -> {
                     return "/movie".equals(request.getServletPath()) && HttpMethod.GET.matches(request.getMethod());
+                }).hasAuthority("user")
+                .requestMatchers(request -> {
+                    return "/movie".equals(request.getServletPath()) && HttpMethod.POST.matches(request.getMethod());
                 }).hasAuthority("admin")
                 .requestMatchers("/greet/**").hasAuthority("user")
                 .and().httpBasic(new Customizer<HttpBasicConfigurer<HttpSecurity>>() {
