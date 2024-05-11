@@ -2,6 +2,7 @@ package com.gfg.jbdll.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
@@ -23,8 +24,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         security.authorizeRequests()
-                .requestMatchers("/admin/greet/**")
-                .hasAuthority("admin")
+                .requestMatchers(request -> {
+                    return "/movie".equals(request.getServletPath()) && HttpMethod.GET.matches(request.getMethod());
+                }).hasAuthority("admin")
                 .requestMatchers("/greet/**").hasAuthority("user")
                 .and().httpBasic(new Customizer<HttpBasicConfigurer<HttpSecurity>>() {
                     @Override
