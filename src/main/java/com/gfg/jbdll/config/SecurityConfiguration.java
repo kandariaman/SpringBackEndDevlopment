@@ -33,8 +33,10 @@ public class SecurityConfiguration {
                 .requestMatchers(request -> {
                     return "/movie".equals(request.getServletPath()) && HttpMethod.POST.matches(request.getMethod());
                 }).hasAuthority("admin")
-                .requestMatchers("/greet/**").hasAuthority("user")
+                .requestMatchers("/movie/**").hasAnyAuthority("user","OAUTH2_USER")
+                .requestMatchers("/greet/**").hasAnyAuthority("user","OAUTH2_USER")
                 .requestMatchers("/signup/**").permitAll()
+                .requestMatchers("**").permitAll()
                 .and()
                 .formLogin(new Customizer<FormLoginConfigurer<HttpSecurity>>() {
                     @Override
