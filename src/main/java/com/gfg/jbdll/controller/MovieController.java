@@ -2,6 +2,7 @@ package com.gfg.jbdll.controller;
 
 import com.gfg.jbdll.domain.Movie;
 import com.gfg.jbdll.service.MovieService;
+import com.gfg.jbdll.service.resources.MovieRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public class MovieController {
     MovieService service=new MovieService();
 
     @PostMapping
-    public boolean addMovie(@RequestBody Movie movie){
+    public boolean addMovie(@RequestBody MovieRequest movieRequest){
 
-        service.addMovie(movie);
+        service.addMovie(movieRequest.getMovieFromRequest());
         return true;
     }
 
