@@ -45,6 +45,8 @@ public class Firstspring52Application implements CommandLineRunner {
 		Movie movie1 = new Movie(2, "MIB-2", GENRE.ACTION, 5.0);
 		template.opsForList().rightPush(movieKey, movie1);
 
+		System.out.println(template.opsForList().range(movieKey, 0, -1));
+
 
 		template.opsForHash().put(movie.getTitle(), "title", movie.getTitle());
 		template.opsForHash().put(movie.getTitle(), "Id", movie.getId());

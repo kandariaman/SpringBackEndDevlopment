@@ -25,6 +25,7 @@ public class RedisConfiguration {
     public RedisTemplate<String, Object> redisTemplate(@Autowired LettuceConnectionFactory lettuceConnectionFactory) {
         RedisTemplate template = new RedisTemplate();
         template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
         template.setConnectionFactory(lettuceConnectionFactory);
 
         return template;
