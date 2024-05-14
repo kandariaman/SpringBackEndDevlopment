@@ -2,9 +2,9 @@ package com.gfg.jbdll.Repository;
 
 import com.gfg.jbdll.domain.GENRE;
 import com.gfg.jbdll.domain.Movie;
-import com.sun.jdi.ArrayReference;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,9 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public List<Movie> find100moviebyOrder() {
-        Movie movie1 = new Movie(2, "MIB-2", GENRE.ACTION, 5.0, "2023-07-01");
-        movieList.add(1, );
+        Movie movie1 = new Movie(2, "MIB-2", GENRE.ACTION, 5.0, LocalDate.parse("2023-07-01"));
+        movieList.add(movie1);
+        return movieList;
     }
 
     @Override

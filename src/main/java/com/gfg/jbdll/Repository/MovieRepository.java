@@ -3,8 +3,10 @@ package com.gfg.jbdll.Repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
+
 public interface MovieRepository extends CrudRepository {
 
-    void find100moviebyOrder();
+    List find100moviebyOrder();
 }
