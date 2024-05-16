@@ -1,7 +1,10 @@
 package com.gfg.jbdll.service;
 
-import com.gfg.jbdll.Repository.MovieRepository;
 import com.gfg.jbdll.domain.Movie;
+import jakarta.annotation.PostConstruct;
+import org.apache.juli.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +22,8 @@ import java.util.Map;
 @Service
 public class MovieService {
 
+    Logger logger = LoggerFactory.getLogger(MovieService.class);
+
     private Map<Integer, Movie>  movieMap=new HashMap<>();
 
     private final String homepageMovieKeys="HOMEPAGE_MOVIES";
@@ -25,8 +31,18 @@ public class MovieService {
     @Autowired
     RedisTemplate redisTemplate;
 
-    @Autowired
-    MovieRepository repository;
+//    @Autowired
+//    MovieRepository repository;
+
+    public MovieService() {
+        logger.info("Constructor called");
+    }
+
+    @PostConstruct
+    public void createTable() throws SQLException {
+
+        logger.info("post construct is called");
+    }
 
     public boolean addMovie(Movie movie){
         int id=this.movieMap.size()+1;
@@ -58,17 +74,22 @@ public class MovieService {
     }
 
     // Check if the movie is less than 30 days old add it to the cache
-    public void addToCache(Movie movie){
-        LocalDate now = movie.getReleaseDate().minusDays(30);
-        System.out.println("Value of now is : " + now);
-    }
+//    public void addToCache(Movie movie){
+//        LocalDate now = movie.getReleaseDate().minusDays(30);
+//        System.out.println("Value of now is : " + now);
+//    }
 
     public List<Movie> getMoviesFromHomePage() {
         List<Movie> movieList = redisTemplate.opsForList().range(homepageMovieKeys, 0, -1);
 
         if(CollectionUtils.isEmpty(movieList)) {
-            movieList = repository.find100moviebyOrder();
+//            movieList = repository.find100moviebyOrder();
+            if(CollectionUtils.isEmpty(movieList)){
+                movieList.stream().forEach(movie -> redisTemplate.opsForList().rightPush(homepageMovieKeys, movie));
+            }
+
 
         }
+        return movieList;
     }
 }
