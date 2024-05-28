@@ -13,7 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +25,28 @@ import java.util.Map;
 @Service
 public class MovieService {
 
-    Logger logger = LoggerFactory.getLogger(MovieService.class);
+    @Autowired
+    Connection connection;
 
-    private Map<Integer, Movie>  movieMap=new HashMap<>();
+    PreparedStatement getAllMovieStatement = null;
 
-    private final String homepageMovieKeys="HOMEPAGE_MOVIES";
+    PreparedStatement addMovieStatement =null;
+
+    @PostConstruct
+    public void createTable() throws SQLException {
+        String query = "create table if not exists movie (id INT auto_increment primary key "
+    }
+
+    try(
+    Statement statement = connection.createStatement()) {
+
+    }catch (Exception ex){
+        logger.error("error creating table");
+    }
+
+    try {
+        addMovieStatement=
+    }
 
     @Autowired
     RedisTemplate redisTemplate;
