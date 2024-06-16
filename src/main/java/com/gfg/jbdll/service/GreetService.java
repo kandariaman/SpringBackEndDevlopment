@@ -15,7 +15,7 @@ public class GreetService {
         return "Hi! "+name;
     }
     public String greetUser(){
-        return "Hi!!";
+        return "Hi there!!";
 
     }
 }
